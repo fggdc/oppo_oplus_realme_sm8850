@@ -2842,7 +2842,7 @@ index 000000000000..112edb700469
 +		return result;
 +	}
 +}
-+
++EXPORT_SYMBOL(LZ4_compress_fast_continue);
 +/* Hidden debug function, to force-test external dictionary mode */
 +int LZ4_compress_forceExtDict(LZ4_stream_t *LZ4_dict, const char *source,
 +			      char *dest, int srcSize)
@@ -9606,7 +9606,7 @@ index 000000000000..cccd7b7d0ab9
 +	LZ4_initStreamHC(LZ4_streamHCPtr, sizeof(*LZ4_streamHCPtr));
 +	LZ4_setCompressionLevel(LZ4_streamHCPtr, compressionLevel);
 +}
-+
++EXPORT_SYMBOL(LZ4_resetStreamHC);
 +void LZ4_resetStreamHC_fast(LZ4_streamHC_t *LZ4_streamHCPtr,
 +			    int compressionLevel)
 +{
