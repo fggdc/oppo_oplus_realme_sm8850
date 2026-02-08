@@ -427,7 +427,88 @@ jobs:
           echo "CONFIG_KSU_SUSFS_SPOOF_CMDLINE_OR_BOOTCONFIG=y" >> ./common/arch/arm64/configs/gki_defconfig
           echo "CONFIG_KSU_SUSFS_OPEN_REDIRECT=y" >> ./common/arch/arm64/configs/gki_defconfig
           echo "CONFIG_KSU_SUSFS_SUS_MAP=y" >> ./common/arch/arm64/configs/gki_defconfig
-          
+      - name: 自定义配置
+        run: |
+          cd kernel_workspace
+          # 这里添加您的自定义配置
+          echo "CONFIG_NAMESPACES=y" >> ./common/arch/arm64/configs/gki_defconfig
+          echo "CONFIG_NET_NS=y" >> ./common/arch/arm64/configs/gki_defconfig
+          echo "CONFIG_PID_NS=y" >> ./common/arch/arm64/configs/gki_defconfig
+          echo "CONFIG_IPC_NS=y" >> ./common/arch/arm64/configs/gki_defconfig
+          echo "CONFIG_UTS_NS=y" >> ./common/arch/arm64/configs/gki_defconfig
+          echo "CONFIG_CGROUPS=y" >> ./common/arch/arm64/configs/gki_defconfig
+          echo "CONFIG_CGROUP_CPUACCT=y" >> ./common/arch/arm64/configs/gki_defconfig
+          echo "CONFIG_CGROUP_DEVICE=y" >> ./common/arch/arm64/configs/gki_defconfig
+          echo "CONFIG_CGROUP_FREEZER=y" >> ./common/arch/arm64/configs/gki_defconfig
+          echo "CONFIG_CGROUP_SCHED=y" >> ./common/arch/arm64/configs/gki_defconfig
+          echo "CONFIG_CPUSETS=y" >> ./common/arch/arm64/configs/gki_defconfig
+          echo "CONFIG_MEMCG=y" >> ./common/arch/arm64/configs/gki_defconfig
+          echo "CONFIG_KEYS=y" >> ./common/arch/arm64/configs/gki_defconfig
+          echo "CONFIG_VETH=y" >> ./common/arch/arm64/configs/gki_defconfig
+          echo "CONFIG_BRIDGE=y" >> ./common/arch/arm64/configs/gki_defconfig
+          echo "CONFIG_BRIDGE_NETFILTER=y" >> ./common/arch/arm64/configs/gki_defconfig
+          echo "CONFIG_IP_NF_FILTER=y" >> ./common/arch/arm64/configs/gki_defconfig
+          echo "CONFIG_IP_NF_TARGET_MASQUERADE=y" >> ./common/arch/arm64/configs/gki_defconfig
+          echo "CONFIG_NETFILTER_XT_MATCH_ADDRTYPE=y" >> ./common/arch/arm64/configs/gki_defconfig
+          echo "CONFIG_NETFILTER_XT_MATCH_CONNTRACK=y" >> ./common/arch/arm64/configs/gki_defconfig
+          echo "CONFIG_NETFILTER_XT_MATCH_IPVS=y" >> ./common/arch/arm64/configs/gki_defconfig
+          echo "CONFIG_NETFILTER_XT_MARK=y" >> ./common/arch/arm64/configs/gki_defconfig
+          echo "CONFIG_IP_NF_NAT=y" >> ./common/arch/arm64/configs/gki_defconfig
+          echo "CONFIG_NF_NAT=y" >> ./common/arch/arm64/configs/gki_defconfig
+          echo "CONFIG_POSIX_MQUEUE=y" >> ./common/arch/arm64/configs/gki_defconfig
+          echo "CONFIG_NF_NAT_IPV4=y" >> ./common/arch/arm64/configs/gki_defconfig
+          echo "CONFIG_NF_NAT_NEEDED=y" >> ./common/arch/arm64/configs/gki_defconfig
+          echo "CONFIG_CGROUP_BPF=y" >> ./common/arch/arm64/configs/gki_defconfig
+          echo "CONFIG_USER_NS=y" >> ./common/arch/arm64/configs/gki_defconfig
+          echo "CONFIG_SECCOMP=y" >> ./common/arch/arm64/configs/gki_defconfig
+          echo "CONFIG_SECCOMP_FILTER=y" >> ./common/arch/arm64/configs/gki_defconfig
+          echo "CONFIG_CGROUP_PIDS=y" >> ./common/arch/arm64/configs/gki_defconfig
+          echo "CONFIG_MEMCG_SWAP=y" >> ./common/arch/arm64/configs/gki_defconfig
+          echo "CONFIG_MEMCG_SWAP_ENABLED=y" >> ./common/arch/arm64/configs/gki_defconfig
+          echo "CONFIG_IOSCHED_CFQ=y" >> ./common/arch/arm64/configs/gki_defconfig
+          echo "CONFIG_CFQ_GROUP_IOSCHED=y" >> ./common/arch/arm64/configs/gki_defconfig
+          echo "CONFIG_BLK_CGROUP=y" >> ./common/arch/arm64/configs/gki_defconfig
+          echo "CONFIG_BLK_DEV_THROTTLING=y" >> ./common/arch/arm64/configs/gki_defconfig
+          echo "CONFIG_CGROUP_PERF=y" >> ./common/arch/arm64/configs/gki_defconfig
+          echo "CONFIG_CGROUP_HUGETLB=y" >> ./common/arch/arm64/configs/gki_defconfig
+          echo "CONFIG_NET_CLS_CGROUP=y" >> ./common/arch/arm64/configs/gki_defconfig
+          echo "CONFIG_CGROUP_NET_PRIO=y" >> ./common/arch/arm64/configs/gki_defconfig
+          echo "CONFIG_CFS_BANDWIDTH=y" >> ./common/arch/arm64/configs/gki_defconfig
+          echo "CONFIG_FAIR_GROUP_SCHED=y" >> ./common/arch/arm64/configs/gki_defconfig
+          echo "CONFIG_RT_GROUP_SCHED=y" >> ./common/arch/arm64/configs/gki_defconfig
+          echo "CONFIG_IP_NF_TARGET_REDIRECT=y" >> ./common/arch/arm64/configs/gki_defconfig
+          echo "CONFIG_IP_VS=y" >> ./common/arch/arm64/configs/gki_defconfig
+          echo "CONFIG_IP_VS_NFCT=y" >> ./common/arch/arm64/configs/gki_defconfig
+          echo "CONFIG_IP_VS_PROTO_TCP=y" >> ./common/arch/arm64/configs/gki_defconfig
+          echo "CONFIG_IP_VS_PROTO_UDP=y" >> ./common/arch/arm64/configs/gki_defconfig
+          echo "CONFIG_IP_VS_RR=y" >> ./common/arch/arm64/configs/gki_defconfig
+          echo "CONFIG_SECURITY_SELINUX=y" >> ./common/arch/arm64/configs/gki_defconfig
+          echo "CONFIG_SECURITY_APPARMOR=y" >> ./common/arch/arm64/configs/gki_defconfig
+          echo "CONFIG_EXT4_FS=y" >> ./common/arch/arm64/configs/gki_defconfig
+          echo "CONFIG_EXT4_FS_POSIX_ACL=y" >> ./common/arch/arm64/configs/gki_defconfig
+          echo "CONFIG_EXT4_FS_SECURITY=y" >> ./common/arch/arm64/configs/gki_defconfig
+          echo "CONFIG_VXLAN=y CONFIG_BRIDGE_VLAN_FILTERING=y" >> ./common/arch/arm64/configs/gki_defconfig
+          echo "CONFIG_CRYPTO=y CONFIG_CRYPTO_AEAD=y" >> ./common/arch/arm64/configs/gki_defconfig
+          echo "CONFIG_CRYPTO_GCM=y" >> ./common/arch/arm64/configs/gki_defconfig
+          echo "CONFIG_CRYPTO_SEQIV=y" >> ./common/arch/arm64/configs/gki_defconfig
+          echo "CONFIG_CRYPTO_GHASH=y CONFIG_XFRM=y" >> ./common/arch/arm64/configs/gki_defconfig
+          echo "CONFIG_XFRM_USER=y" >> ./common/arch/arm64/configs/gki_defconfig
+          echo "CONFIG_XFRM_ALGO=y" >> ./common/arch/arm64/configs/gki_defconfig
+          echo "CONFIG_INET_ESP=y" >> ./common/arch/arm64/configs/gki_defconfig
+          echo "CONFIG_INET_XFRM_MODE_TRANSPORT=y" >> ./common/arch/arm64/configs/gki_defconfig
+          echo "CONFIG_IPVLAN=y" >> ./common/arch/arm64/configs/gki_defconfig
+          echo "CONFIG_MACVLAN=y" >> ./common/arch/arm64/configs/gki_defconfig
+          echo "CONFIG_DUMMY=y" >> ./common/arch/arm64/configs/gki_defconfig
+          echo "CONFIG_NF_NAT_FTP=y" >> ./common/arch/arm64/configs/gki_defconfig
+          echo "CONFIG_NF_CONNTRACK_FTP=y" >> ./common/arch/arm64/configs/gki_defconfig
+          echo "CONFIG_NF_NAT_TFTP=y" >> ./common/arch/arm64/configs/gki_defconfig
+          echo "CONFIG_NF_CONNTRACK_TFTP=y" >> ./common/arch/arm64/configs/gki_defconfig
+          echo "CONFIG_AUFS_FS=y" >> ./common/arch/arm64/configs/gki_defconfig
+          echo "CONFIG_BTRFS_FS=y" >> ./common/arch/arm64/configs/gki_defconfig
+          echo "CONFIG_BTRFS_FS_POSIX_ACL=y" >> ./common/arch/arm64/configs/gki_defconfig
+          echo "CONFIG_BLK_DEV_DM=y" >> ./common/arch/arm64/configs/gki_defconfig
+          echo "CONFIG_DM_THIN_PROVISIONING=y" >> ./common/arch/arm64/configs/gki_defconfig
+          echo "CONFIG_OVERLAY_FS=y" >> ./common/arch/arm64/configs/gki_defconfig  
       - name: 添加 KSU & 其他配置项
         run: |
           cd kernel_workspace
@@ -612,47 +693,16 @@ jobs:
           echo "sloppiness = file_stat_matches,include_file_ctime,include_file_mtime,pch_defines,file_macro,time_macros" >> "$CCACHE_DIR/ccache.conf"
           
           cd kernel_workspace/common
-          wget https://github.com/cctv18/oppo_oplus_realme_sm8850/raw/refs/heads/main/lib/libfakestat.so
-          wget https://github.com/cctv18/oppo_oplus_realme_sm8850/raw/refs/heads/main/lib/libfaketimeMT.so
-          chmod 777 ./*.so
-          export FAKESTAT="2025-05-25 12:00:00"
-          export FAKETIME="@2025-05-25 13:00:00"
-          echo "FAKESTAT=$FAKESTAT" >> $GITHUB_ENV
-          echo "FAKETIME=$FAKETIME" >> $GITHUB_ENV
-          SO_DIR=$(pwd)
-          export PRELOAD_LIBS="$SO_DIR/libfakestat.so $SO_DIR/libfaketimeMT.so"
           export REAL_CLANG_PATH="$WORKDIR/kernel_workspace/clang19/bin/clang"
           #创建 CC (编译器) 包装器
           echo '#!/bin/bash' > cc-wrapper
           echo 'export LD_PRELOAD="'$PRELOAD_LIBS'"' >> cc-wrapper
-          echo 'export FAKESTAT="'$FAKESTAT'"' >> cc-wrapper
-          echo 'export FAKETIME="'$FAKETIME'"' >> cc-wrapper
           echo 'ccache $REAL_CLANG_PATH "$@"' >> cc-wrapper
           #创建 LD (链接器) 包装器
           echo '#!/bin/bash' > ld-wrapper
           echo 'export LD_PRELOAD="'$PRELOAD_LIBS'"' >> ld-wrapper
-          echo 'export FAKESTAT="'$FAKESTAT'"' >> ld-wrapper
-          echo 'export FAKETIME="'$FAKETIME'"' >> ld-wrapper
           echo 'ld.lld "$@"' >> ld-wrapper
-          
-          # 测试时间劫持测试是否正常工作
-          echo "--- [Wrapper Test] 正在创建通用的时间劫持测试脚本 ---"
-          echo '#!/bin/bash' > test-wrapper.sh
-          echo 'export LD_PRELOAD="'$PRELOAD_LIBS'"' >> test-wrapper.sh
-          echo 'export FAKESTAT="'$FAKESTAT'"' >> test-wrapper.sh
-          echo 'export FAKETIME="'$FAKETIME'"' >> test-wrapper.sh
-          echo 'echo ">>> Wrapper 内部环境检查完毕."' >> test-wrapper.sh
-          echo 'exec "$@"' >> test-wrapper.sh # 执行所有传入的参数
-          chmod +x test-wrapper.sh
-          echo "--- [Wrapper Test] 正在测试 (date) 命令 ---"
-          ./test-wrapper.sh date
-          echo "--- [Wrapper Test] 正在测试 (stat) 命令 ---"
-          ./test-wrapper.sh stat ./Makefile
-          echo "--- [Wrapper Test] 测试完毕 ---"
           chmod +x cc-wrapper ld-wrapper
-          echo "--- 编译前环境时间: $(LD_PRELOAD=$PRELOAD_LIBS date) ---"
-          echo "--- 编译前环境文件时间戳: ---"
-          LD_PRELOAD=$PRELOAD_LIBS stat ./Makefile
           
           # 6.12内核make编译核心配置：
           # 1. 重映射物理路径 (由于6.12内核引入了Rust代码，计算内核符号版本的工具变成了gendwarfksyms，而gendwarfksyms无法正确预处理绝对路径，故我们需要手动把绝对路径重映射为相对路径，否则内核符号校验值会大面积出错)
