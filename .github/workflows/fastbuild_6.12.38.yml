@@ -218,6 +218,12 @@ jobs:
             echo "正在配置SukiSU Ultra..."
             curl -LSs "https://raw.githubusercontent.com/ShirkNeko/SukiSU-Ultra/refs/heads/main/kernel/setup.sh" | bash -s builtin
             cd ./KernelSU
+            sed -i '18i\#include <linux/vmalloc.h>'\
+              kernel/supercalls.c
+            sed -i '36i\// mytestkey\
+              #define EXPECTED_SIZE 0x384\
+              #define EXPECTED_HASH "d3a4d5841aef79825fbcd902af4f0e58880be264ae20e5efa81c341cc3dfed64"'\
+              kernel/manager_sign.h
             # 获取当前 Git 提交的短哈希 (8位)
             GIT_COMMIT_HASH=$(git rev-parse --short=8 HEAD)
             echo "当前提交哈希: $GIT_COMMIT_HASH"
@@ -275,6 +281,12 @@ jobs:
             curl -LSs "https://raw.githubusercontent.com/ReSukiSU/ReSukiSU/refs/heads/main/kernel/setup.sh" | bash -s main
             echo 'CONFIG_KSU_FULL_NAME_FORMAT="%TAG_NAME%-%COMMIT_SHA%@cctv18"' >> ./common/arch/arm64/configs/gki_defconfig
             cd ./KernelSU
+            sed -i '18i\#include <linux/vmalloc.h>'\
+              kernel/supercalls.c
+            sed -i '36i\// mytestkey\
+              #define EXPECTED_SIZE 0x384\
+              #define EXPECTED_HASH "d3a4d5841aef79825fbcd902af4f0e58880be264ae20e5efa81c341cc3dfed64"'\
+              kernel/manager_sign.h
             # 生成自定义版本号（基于提交计数）, 失败时使用 114514
             KSU_VERSION=$(expr $(git rev-list --count main) + 30700 2>/dev/null || echo 114514)
             # 存储版本号到 GitHub 环境变量
@@ -610,7 +622,7 @@ jobs:
           export LIBCLANG_PATH="$WORKDIR/kernel_workspace/clang19/lib"
           # 3. 配置KCFLAGS
           KCFLAGS+=" -no-canonical-prefixes"
-          KCFLAGS+=" -O2"
+          KCFLAGS+=" -O3"
           KCFLAGS+=" -pipe"
           KCFLAGS+=" -Wno-error"
           KCFLAGS+=" -fno-stack-protector"
