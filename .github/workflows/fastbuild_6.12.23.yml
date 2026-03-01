@@ -741,7 +741,7 @@ jobs:
       # 2. 上传生成的 zst 文件
       # 注意：将 compression-level 设为 0，因为我们已经手动压过了
       - name: Upload Artifact
-        uses: actions/actions/upload-artifact@v4
+        uses: actions/upload-artifact@v4
         with:
           name: work-high-compression
           path: kernel_workspace.tar.zst
