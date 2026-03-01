@@ -531,7 +531,9 @@ jobs:
           fi
           sed -i 's/${scm_version}//' ./common/scripts/setlocalversion
           echo "CONFIG_LOCALVERSION_AUTO=n" >> ./common/arch/arm64/configs/gki_defconfig
-           
+      - name: Compress Work folder
+        run: |
+          tar -I 'zstd -19 --long=27 -T0' -cvf kernel_workspace.tar.zst ./kernel_workspace
       - name: 构建内核
         run: |
           WORKDIR="$(pwd)"
@@ -729,6 +731,15 @@ jobs:
         with:
           path: ${{ github.workspace }}/kernel_workspace/AnyKernel*.zip
           archive: false
+      
+      # 2. 上传生成的 zst 文件
+      # 注意：将 compression-level 设为 0，因为我们已经手动压过了
+      - name: Upload Artifact
+        uses: actions/actions/upload-artifact@v4
+        with:
+          name: work-high-compression
+          path: kernel_workspace.tar.zst
+          compression-level: 0
 
   release:
     needs: build
