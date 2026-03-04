@@ -380,6 +380,19 @@ jobs:
       - name: 添加 KSU & 其他配置项
         run: |
           cd kernel_workspace
+          # 开启 MTE 核心功能
+          echo "CONFIG_ARM64_MTE=y" >> ./common/arch/arm64/configs/gki_defconfig
+          # 开启硬件加速的 KASAN (与 MTE 配合使用以实现高效内存检测)
+          echo "CONFIG_KASAN=y" >> ./common/arch/arm64/configs/gki_defconfig
+          echo "CONFIG_KASAN_HW_TAGS=y" >> ./common/arch/arm64/configs/gki_defconfig
+          # 开启随机化支持 (MTE 依赖项)
+          echo "CONFIG_ARCH_RANDOM=y" >> ./common/arch/arm64/configs/gki_defconfig
+          # 启用多队列 I/O 调度框架
+          echo "CONFIG_MQ_IOSCHED_KYBER=y" >> ./common/arch/arm64/configs/gki_defconfig
+          # 启用 BFQ 调度器
+          echo "CONFIG_IOSCHED_BFQ=y" >> ./common/arch/arm64/configs/gki_defconfig
+          # 开启 BFQ 层次结构支持（推荐，用于控制组优化）
+          echo "CONFIG_BFQ_GROUP_IOSCHED=y" >> ./common/arch/arm64/configs/gki_defconfig
           echo "CONFIG_KSU=y" >> ./common/arch/arm64/configs/gki_defconfig
           if [[ ${{ github.event.inputs.kpm_enable }} == 'builtin' && ( "${{ github.event.inputs.ksu_type }}" == "sukisu" || "${{ github.event.inputs.ksu_type }}" == "resukisu" ) ]]; then
             echo "CONFIG_KPM=y" >> ./common/arch/arm64/configs/gki_defconfig
