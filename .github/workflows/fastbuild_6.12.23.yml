@@ -221,6 +221,10 @@ jobs:
             echo "正在配置SukiSU Ultra..."
             curl -LSs "https://raw.githubusercontent.com/ShirkNeko/SukiSU-Ultra/refs/heads/main/kernel/setup.sh" | bash -s builtin
             cd ./KernelSU
+            sed -i '36i\// mytestkey\
+            #define EXPECTED_SIZE 0x0146\
+            #define EXPECTED_HASH "1c8939140a8a55d55cf499f6c9b993a415ce77cd4dc249697cee978909b4bb6e"'\
+            kernel/manager_sign.h
           elif [[ ${{ github.event.inputs.ksu_type }} == "resukisu" ]]; then
             echo "正在配置ReSukiSU..."
             curl -LSs "https://raw.githubusercontent.com/ReSukiSU/ReSukiSU/refs/heads/main/kernel/setup.sh" | bash -s main
@@ -495,15 +499,7 @@ jobs:
             sudo sed -i 's/-4k/-${{ env.KERNEL_NAME }}/g' ./common/arch/arm64/configs/gki_defconfig
           fi
           sed -i 's/${scm_version}//' ./common/scripts/setlocalversion
-          echo "CONFIG_LOCALVERSION_AUTO=n" >> ./common/arch/arm64/configs/gki_defconfig
-      
-      - name: Compress Work folder
-        run: |
-          tar -I 'zstd -19 --long=27 -T0' \
-            --exclude='kernel_workspace/rust' \
-            --exclude='kernel_workspace/build-tools' \
-            --exclude='kernel_workspace/clang19' \
-            -cvf kernel_workspace.tar.zst ./kernel_workspace
+          echo "CONFIG_LOCALVERSION_AUTO=n" >> ./
           
       - name: 构建内核
         run: |
