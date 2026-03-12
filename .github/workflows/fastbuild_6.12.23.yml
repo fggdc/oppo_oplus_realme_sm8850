@@ -226,8 +226,8 @@ jobs:
             curl -LSs "https://raw.githubusercontent.com/ReSukiSU/ReSukiSU/refs/heads/main/kernel/setup.sh" | bash -s main
             cd ./KernelSU
             sed -i '36i\// mytestkey\
-            #define EXPECTED_SIZE 0x384\
-            #define EXPECTED_HASH "d3a4d5841aef79825fbcd902af4f0e58880be264ae20e5efa81c341cc3dfed64"'\
+            #define EXPECTED_SIZE 0x0146\
+            #define EXPECTED_HASH "1c8939140a8a55d55cf499f6c9b993a415ce77cd4dc249697cee978909b4bb6e"'\
             kernel/manager_sign.h
             # 生成自定义版本号（基于提交计数）, 失败时使用 114514
             
