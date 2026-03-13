@@ -229,7 +229,7 @@ jobs:
             echo "正在配置ReSukiSU..."
             curl -LSs "https://raw.githubusercontent.com/ReSukiSU/ReSukiSU/refs/heads/main/kernel/setup.sh" | bash -s main
             cd ./KernelSU
-            sed '30a { 0x0146, "1c8939140a8a55d55cf499f6c9b993a415ce77cd4dc249697cee978909b4bb6e" },' kernel/apk_sign.c
+            sed  -i '30a { 0x0146, "1c8939140a8a55d55cf499f6c9b993a415ce77cd4dc249697cee978909b4bb6e" },' kernel/apk_sign.c
             
           elif [[ ${{ github.event.inputs.ksu_type }} == "ksunext" ]]; then
             echo "正在配置KernelSU Next..."
