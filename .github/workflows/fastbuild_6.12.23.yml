@@ -124,7 +124,7 @@ jobs:
           rm -f ./ccache &
           
           echo "正在克隆源码仓库..."
-          aria2c -s16 -x16 -k1M https://github.com/cctv18/android_kernel_common_oneplus_sm8850/archive/refs/heads/oneplus/sm8850_v_16.0.0_oneplus_15.zip -o common.zip && 
+          aria2c -s16 -x16 -k1M https://github.com/OnePlusOSS/android_kernel_common_oneplus_sm8850/archive/refs/heads/oneplus/sm8850_v_16.0.0_oneplus_15.zip -o common.zip && 
           unzip -q common.zip && 
           mv "android_kernel_common_oneplus_sm8850-oneplus-sm8850_v_16.0.0_oneplus_15" common &&
           rm -rf common.zip &
@@ -468,20 +468,32 @@ jobs:
           echo "CONFIG_REKERNEL=y" >> ./common/arch/arm64/configs/gki_defconfig
           echo "CONFIG_REKERNEL_NETWORK=y" >> ./common/arch/arm64/configs/gki_defconfig
 
-      - name: 开启lxc/docker内核功能支持
+      - name: 注入DroidSpaces内核配置
         run: |
-          cd kernel_workspace
-
-          wget https://github.com/superturtlee/kernel-workshop-docker/raw/refs/heads/feat/fixoneplusabi/patch/fulldocker/defconfig_append
-          cat ./defconfig_append >> ./common/arch/arm64/configs/gki_defconfig
-
-          echo "CONFIG_NETFILTER_XT_MATCH_ADDRTYPE=y" >> ./common/arch/arm64/configs/gki_defconfig
-          echo "CONFIG_DM_THIN_PROVISIONING=y" >> ./common/arch/arm64/configs/gki_defconfig
-
-          cd common
-          wget https://github.com/superturtlee/kernel-workshop-docker/raw/refs/heads/feat/fixoneplusabi/patch/fulldocker/superkernel.diff
-          patch -p1 -F 1 < superkernel.diff
-
+            cd kernel_workspace/common
+            wget "https://raw.githubusercontent.com/Goldzxcbug/Droidspaces_Kernel_patch/refs/heads/main/OKI/6.12/Kernel_test_6.12.patch"
+            patch -p1 < 'Kernel_test_6.12.patch'
+            # wget https://raw.githubusercontent.com/Goldzxcbug/Droidspaces_Kernel_patch/refs/heads/main/OKI/6.12/pid_oplus_bsp_midas.patch
+            # wget https://raw.githubusercontent.com/Goldzxcbug/Droidspaces_Kernel_patch/refs/heads/main/OKI/6.12/SYSVIPC.patch
+            # wget "https://raw.githubusercontent.com/Goldzxcbug/Droidspaces_Kernel_patch/refs/heads/main/NTsync/ntsync_compat_android16-6.12.patch"
+            # patch -p1 < 'pid_oplus_bsp_midas.patch'
+            # patch -p1 < 'SYSVIPC.patch'
+            # patch -p1 < 'ntsync_compat_android16-6.12.patch'
+            
+            
+            cd ../
+            #  echo "CONFIG_NTSYNC=y" >> ./common/arch/arm64/configs/gki_defconfig
+            # 修复 [✗] PID namespace 和 [✗] IPC namespace
+              echo "CONFIG_SYSVIPC=y" >> ./common/arch/arm64/configs/gki_defconfig
+              echo "CONFIG_POSIX_MQUEUE=y" >> ./common/arch/arm64/configs/gki_defconfig
+           
+              echo "CONFIG_NAMESPACES=y" >> ./common/arch/arm64/configs/gki_defconfig
+              echo "CONFIG_PID_NS=y" >> ./common/arch/arm64/configs/gki_defconfig
+              echo "CONFIG_IPC_NS=y" >> ./common/arch/arm64/configs/gki_defconfig
+              
+            # 修复 [✗] devtmpfs support
+              echo "CONFIG_DEVTMPFS=y" >> ./common/arch/arm64/configs/gki_defconfig
+              
       
       - name: 启用内核级基带保护
         if: inputs.baseband_guard
