@@ -134,14 +134,14 @@ jobs:
           rm -f ./ccache &
           
           echo "正在克隆源码仓库..."
-          aria2c -s16 -x16 -k1M https://github.com/cctv18/android_kernel_common_oneplus_sm8850/archive/refs/heads/oneplus/sm8850_v_16.0.0_oneplus_15.zip -o common.zip && 
+          aria2c -s16 -x16 -k1M https://github.com/OnePlusOSS/android_kernel_common_oneplus_sm8850/archive/refs/heads/oneplus/sm8850_b_16.0.0_oneplus_15.zip -o common.zip && 
           unzip -q common.zip && 
           mv "android_kernel_common_oneplus_sm8850-oneplus-sm8850_v_16.0.0_oneplus_15" common &&
           rm -rf common.zip &
           
           echo "正在克隆llvm-clang19工具链..." &&
           mkdir -p clang19 &&
-          aria2c -s16 -x16 -k1M https://github.com/cctv18/oneplus_sm8650_toolchain/releases/download/LLVM-Clang19-r536225/clang-r536225.zip -o clang.zip &&
+          aria2c -s16 -x16 -k1M https://github.com/cctv18/oneplus_sm8650_toolchain/releases/download/LLVM-Clang20-r547379/clang-r547379.zip -o clang.zip &&
           unzip -q clang.zip -d clang19 &&
           rm -rf clang.zip &
           
@@ -192,6 +192,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          exit 0
           echo "检查本地缓存状态..."
           if [ -d "${{ env.CCACHE_DIR }}" ] && [ "$(ls -A ${{ env.CCACHE_DIR }} 2>/dev/null)" ]; then
             echo "检测到本地已成功载入 ccache 缓存，跳过公共 ccache 拉取！"
@@ -393,6 +394,8 @@ jobs:
           # 6.12内核Rust配置
           echo "CONFIG_RUST=y" >> ./common/arch/arm64/configs/gki_defconfig
           echo "CONFIG_ANDROID_BINDER_IPC_RUST=m" >> ./common/arch/arm64/configs/gki_defconfig
+          echo "CONFIG_ARM64_AS_HAS_MTE=y" >> ./common/arch/arm64/configs/gki_defconfig
+          echo "CONFIG_ARM64_MTE=y" >> ./common/arch/arm64/configs/gki_defconfig
           
       - name: 启用网络功能增强优化配置
         if: inputs.better_net
@@ -474,11 +477,13 @@ jobs:
             echo "正在启用 Droidspaces 容器支持..."
             cd kernel_workspace/common
             # 应用 Droidspaces 容器必须补丁
-            wget https://github.com/$GITHUB_REPOSITORY/raw/refs/heads/$GITHUB_REF_NAME/droidspaces_patch/fix_sysvipc_kabi_a16-6.12.patch
-            patch -p1 -F 3 < fix_sysvipc_kabi_a16-6.12.patch || true
+            wget https://raw.githubusercontent.com/Goldzxcbug/Droidspaces_Kernel_patch/refs/heads/main/OKI/6.12/SYSVIPC.patch
+            patch -p1 -F 3 < SYSVIPC.patch || true
             # 修补 oplus_bsp_midas 行为，避免开机崩溃
-            wget https://github.com/$GITHUB_REPOSITORY/raw/refs/heads/$GITHUB_REF_NAME/droidspaces_patch/fix_oplus_bsp_midas.patch
-            patch -p1 -F 3 < fix_oplus_bsp_midas.patch || true
+            wget https://raw.githubusercontent.com/Goldzxcbug/Droidspaces_Kernel_patch/refs/heads/main/OKI/6.12/pid_oplus_bsp_midas.patch
+            patch -p1 -F 3 < pid_oplus_bsp_midas.patch || true
+            wget https://raw.githubusercontent.com/Goldzxcbug/Droidspaces_Kernel_patch/refs/heads/main/OKI/6.12/PID_MAX.patch
+            patch -p1 -F 3 < PID_MAX.patch || true
             # 应用 NTSync 补丁
             wget https://github.com/$GITHUB_REPOSITORY/raw/refs/heads/$GITHUB_REF_NAME/droidspaces_patch/ntsync_compat_${{ env.ANDROID_VERSION }}-${{ env.KERNEL_VERSION }}.patch
             patch -p1 -F 3 < ntsync_compat_${{ env.ANDROID_VERSION }}-${{ env.KERNEL_VERSION }}.patch || true
