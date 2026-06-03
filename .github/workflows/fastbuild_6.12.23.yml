@@ -480,10 +480,8 @@ jobs:
             wget https://raw.githubusercontent.com/Goldzxcbug/Droidspaces_Kernel_patch/refs/heads/main/OKI/6.12/SYSVIPC.patch
             patch -p1 -F 3 < SYSVIPC.patch || true
             # 修补 oplus_bsp_midas 行为，避免开机崩溃
-            wget https://raw.githubusercontent.com/Goldzxcbug/Droidspaces_Kernel_patch/refs/heads/main/OKI/6.12/pid_oplus_bsp_midas.patch
-            patch -p1 -F 3 < pid_oplus_bsp_midas.patch || true
-            wget https://raw.githubusercontent.com/Goldzxcbug/Droidspaces_Kernel_patch/refs/heads/main/OKI/6.12/PID_MAX.patch
-            patch -p1 -F 3 < PID_MAX.patch || true
+            wget https://raw.githubusercontent.com/Goldzxcbug/Droidspaces_Kernel_patch/refs/heads/main/OKI/6.12/midas_sched_assist_2in1_fix.patch
+            patch -p1 -F 3 < midas_sched_assist_2in1_fix.patch || true
             # 应用 NTSync 补丁
             wget https://github.com/$GITHUB_REPOSITORY/raw/refs/heads/$GITHUB_REF_NAME/droidspaces_patch/ntsync_compat_${{ env.ANDROID_VERSION }}-${{ env.KERNEL_VERSION }}.patch
             patch -p1 -F 3 < ntsync_compat_${{ env.ANDROID_VERSION }}-${{ env.KERNEL_VERSION }}.patch || true
