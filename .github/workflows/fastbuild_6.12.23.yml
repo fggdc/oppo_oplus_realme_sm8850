@@ -134,9 +134,9 @@ jobs:
           rm -f ./ccache &
           
           echo "正在克隆源码仓库..."
-          aria2c -s16 -x16 -k1M https://github.com/fggdc/android_kernel_common_oneplus_sm8850/archive/refs/heads/oneplus/sm8850_b_16.0.0_oneplus_15.zip -o common.zip && 
+          aria2c -s16 -x16 -k1M https://github.com/fggdc/android_kernel_common_oneplus_sm8850/archive/refs/heads/oneplus/sm8850_b_16.0.0_oneplus_15_ctv.zip -o common.zip && 
           unzip -q common.zip && 
-          mv "android_kernel_common_oneplus_sm8850-oneplus-sm8850_b_16.0.0_oneplus_15" common &&
+          mv "android_kernel_common_oneplus_sm8850-oneplus-sm8850_b_16.0.0_oneplus_15_ctv" common &&
           rm -rf common.zip &
           
           echo "正在克隆llvm-clang19工具链..." &&
@@ -500,6 +500,8 @@ jobs:
             #echo "CONFIG_CGROUP_PIDS=y" >> ./arch/arm64/configs/gki_defconfig
             #echo "CONFIG_FW_LOADER_COMPRESS=y" >> ./arch/arm64/configs/gki_defconfig
             #echo "CONFIG_BRIDGE_NETFILTER=y" >> ./arch/arm64/configs/gki_defconfig
+            echo "CONFIG_IP6_NF_NAT=y" >> ./arch/arm64/configs/gki_defconfig
+            echo "CONFIG_IP6_NF_TARGET_REDIRECT=y" >> ./arch/arm64/configs/gki_defconfig
             #echo "CONFIG_NF_TABLES=y" >> ./arch/arm64/configs/gki_defconfig
             # 开启 NTSync
             echo "CONFIG_NTSYNC=y" >> ./arch/arm64/configs/gki_defconfig
