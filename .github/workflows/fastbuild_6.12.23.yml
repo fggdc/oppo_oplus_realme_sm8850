@@ -571,6 +571,7 @@ jobs:
           export PATH="$WORKDIR/kernel_workspace/build-tools/bin:$PATH"
           export PATH="$WORKDIR/kernel_workspace/rust/bin:$PATH"
           export CLANG_DIR="$WORKDIR/kernel_workspace/clang19/bin"
+          export KBUILD_BUILD_TIMESTAMP="Wed May 28 12:00:00 UTC 2026"
           CLANG_VERSION="$($CLANG_DIR/clang --version | head -n 1)"
           LLD_VERSION="$($CLANG_DIR/ld.lld --version | head -n 1)"
           RUSTC_VERSION="$(rustc -V 2>/dev/null | head -n1)"
